@@ -11,8 +11,8 @@ const NavBar = () => {
         className="navbar-toggler"
         type="button"
         data-toggle="collapse"
-        data-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
@@ -28,6 +28,9 @@ const NavBar = () => {
           </NavLink>
           <NavLink className="nav-item nav-link" to="/rentals">
             rentals
+          </NavLink>
+          <NavLink className="nav-item nav-link" to="/login">
+            Login
           </NavLink>
         </div>
       </div>
