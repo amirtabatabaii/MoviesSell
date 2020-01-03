@@ -1,10 +1,8 @@
 import React from "react";
-import _ from "lodash"; //underScore
 import PropTypes from "prop-types";
+import _ from "lodash";
 
-const Pagination = props => {
-  const { itemsCount, pageSize, currentPage } = props;
-
+const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
   const pagesCount = Math.ceil(itemsCount / pageSize);
   if (pagesCount === 1) return null;
   const pages = _.range(1, pagesCount + 1);
@@ -17,11 +15,7 @@ const Pagination = props => {
             key={page}
             className={page === currentPage ? "page-item active" : "page-item"}
           >
-            <a
-              href="#none" // warning!!!
-              className="page-link"
-              onClick={() => props.onPageChange(page)}
-            >
+            <a className="page-link" onClick={() => onPageChange(page)}>
               {page}
             </a>
           </li>
