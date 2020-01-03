@@ -4,21 +4,53 @@ import "bootstrap/dist/css/bootstrap.css";
 
 class LoginForm extends Component {
   state = {
-    account: { username: "", password: "" }
+    account: { username: "", password: "" },
+    errors: {}
+  };
+
+  validate = () => {
+    const errors = {};
+    const { account } = this.state;
+
+    if (account.username.trim() === "")
+      errors.username = "Username is required.";
+    if (account.password.trim() === "")
+      errors.password = "Password is required.";
+
+    return Object.keys(errors).length === 0 ? null : errors;
   };
 
   handleSubmit = e => {
     e.preventDefault();
+    const errors = this.validate();
+    this.setState({ errors: errors || {} });
+    if (errors) return;
+
+    //Call the Server
+    console.log("Submitted");
+  };
+
+  validateProperty = input => {
+    if (input.ame === "username") {
+      if (input.vaue.trim() === "") return "Username is required.";
+      //...
+    }
   };
 
   handleChange = ({ currentTarget: input }) => {
+    const errors = { ...this.state.errors };
+    const errorMessage = this.validateProperty(input);
+    if (errorMessage) errors[input.name] = errorMessage;
+    else delete errors[input.name];
+
     const account = { ...this.state.account };
     account[input.name] = input.value;
-    this.setState({ account });
+
+    this.setState({ account, errors });
   };
 
   render() {
-    const { account } = this.state;
+    const { account, errors } = this.state;
 
     return (
       <div>
@@ -26,15 +58,17 @@ class LoginForm extends Component {
         <form onSubmit={this.handleSubmit}>
           <Input
             name="username"
-            lable="Username"
             value={account.username}
-            Onchange={this.handleChange}
+            label="Username"
+            onChange={this.handleChange}
+            error={errors.username}
           />
           <Input
             name="password"
-            lable="Password"
             value={account.password}
-            Onchange={this.handleChange}
+            label="Password"
+            onChange={this.handleChange}
+            error={errors.password}
           />
           <button className="btn btn-primary">Login</button>
         </form>
